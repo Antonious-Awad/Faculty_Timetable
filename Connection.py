@@ -26,8 +26,7 @@ class Connection:
         returnCourses = []
         for i in range(0, len(courses)):
             returnCourses.append(
-                Course.Course(courses[i][0], courses[i][1], self.select_course_instructors(courses[i][0]),
-                              courses[i][2]))
+                Course.Course(courses[i][0], courses[i][1], self.select_course_instructors(courses[i][0]),courses[i][2]))
         return returnCourses
 
     def select_instructors(self):
