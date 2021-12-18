@@ -52,4 +52,4 @@ class GeneticAlgorithm:
         return mutated_schedule
 
     def evolve(self, population):
-        self._mutate_population(self._crossover_population(population))
+        return self._mutate_population(self._crossover_population(population))
