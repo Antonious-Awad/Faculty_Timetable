@@ -42,7 +42,7 @@ class GeneticAlgorithm:
     def _mutate_population(self, population):
         elite_count = round( len( population.get_schedules() ) * cross_rate )
         for i in range( elite_count, POPULATION_NUM ):
-            self._mutate( population.get_schedule()[i] )
+            self._mutate( population.get_schedules()[i] )
         return population
 
     def _mutate(self, schedule):
