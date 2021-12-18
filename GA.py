@@ -9,6 +9,7 @@ mutation_rate = 0.01
 cross_rate = 0.1  # number of retained population from last generation
 
 
+
 class GeneticAlgorithm:
 
     def _tournament_selection(self, population):
