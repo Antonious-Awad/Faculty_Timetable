@@ -16,8 +16,8 @@ class GeneticAlgorithm:
         for _ in range(k):
             tournament_population.get_schedules().append(
                 population.get_schedules()[random.randrange(0, POPULATION_NUM)])
-        tournament_population.get_schedules().sort(key=lambda x: x.get_fitness())
-        return tournament_population.get_schedules()[0]
+        tournament_population.get_schedules().sort(key=lambda x: x.get_fitness(),reverse= True)
+        return tournament_population
 
     def _crossover_population(self, population):
         crossover_population = p.Population(0)
@@ -25,8 +25,8 @@ class GeneticAlgorithm:
         crossover_population.get_schedules().append(
             population.get_schedules()[:elite_count])
         for _ in range(elite_count, POPULATION_NUM):
-            sched1 = self._tournament_selection(population)
-            sched2 = self._tournament_selection(population)
+            sched1 = self._tournament_selection(population).get_schedules()[0]
+            sched2 = self._tournament_selection(population).get_schedules()[0]
             crossover_population.get_schedules().append(self._crossover(sched1, sched2))
         return crossover_population
 
