@@ -28,7 +28,7 @@ class GeneticAlgorithm:
             sched1 = self._tournament_selection( population )
             sched2 = self._tournament_selection( population )
             crossover_population.get_schedules().append( self._crossover( sched1, sched2 ) )
-        return crossover_populations
+        return crossover_population
 
     def _crossover(self, parent1, parent2):
         child = s.Schedule().initialization()
