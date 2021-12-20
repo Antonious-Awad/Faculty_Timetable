@@ -52,5 +52,5 @@ class GeneticAlgorithm:
                 mutated_schedule.get_classes()[i] = schedule.get_classes()[i]
         return mutated_schedule
 
-    def evolve(self, population) -> object:
+    def evolve(self, population):
         return self._mutate_population(self._crossover_population(population))
