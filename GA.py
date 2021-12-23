@@ -22,8 +22,10 @@ class GeneticAlgorithm:
     def _crossover_population(self, population):
         crossover_population = p.Population(0)
         elite_count = round(len(population.get_schedules()) * cross_rate)
-        crossover_population.get_schedules().append(
-            population.get_schedules()[:elite_count])
+        # crossover_population.get_schedules().append(
+        #     population.get_schedules()[:elite_count])
+        for i in range(elite_count):
+            crossover_population.get_schedules().append(population.get_schedules()[i])
         for _ in range(elite_count, POPULATION_NUM):
             sched1 = self._tournament_selection(population).get_schedules()[0]
             sched2 = self._tournament_selection(population).get_schedules()[0]
@@ -33,7 +35,7 @@ class GeneticAlgorithm:
     def _crossover(self, parent1, parent2):
         child = s.Schedule().initialization()
         for i in range(len(child.get_classes())):
-            if random.random() > 0.5:
+            if (random.random() > 0.5):
                 child.get_classes()[i] = parent1.get_classes()[i]
             else:
                 child.get_classes()[i] = parent2.get_classes()[i]
@@ -45,8 +47,8 @@ class GeneticAlgorithm:
             self._mutate(population.get_schedules()[i])
         return population
 
-    def _mutate(self, schedule):
-        mutated_schedule = s.Schedule().initialization()
+    def _mutate(self, mutated_schedule):
+        schedule = s.Schedule().initialization()
         for i in range(len(mutated_schedule.get_classes())):
             if (mutation_rate > random.random()):
                 mutated_schedule.get_classes()[i] = schedule.get_classes()[i]
