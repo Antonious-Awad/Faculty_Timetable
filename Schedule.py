@@ -23,34 +23,33 @@ class Schedule:
         return self._numOfConflicts
 
     def get_fitness(self):
-        if (self._isFitnessChanged == True):
+        if self._isFitnessChanged:
             self._fitness = self.calculate_fitness()
             self._isFitnessChanged = False
         return self._fitness
 
     def initialization(self):
         departments = self._connection.get_departments()
-        for i in range(0, len(departments)):
+        for i in range( 0, len( departments ) ):
             courses = departments[i].get_courses()
-            for j in range(0, len(courses)):
-                CurrentClass = Class.Class(self._classNo, departments[i], courses[j])
+            for j in range( 0, len( courses ) ):
+                CurrentClass = Class.Class( self._classNo, departments[i], courses[j] )
                 self._classNo += 1
                 CurrentClass.set_meetingTime(
-                    connection.get_meetingTimes()[random.randrange(0, len(connection.get_meetingTimes()))])
-                CurrentClass.set_room(connection.get_rooms()[random.randrange(0, len(connection.get_rooms()))])
+                    connection.get_meetingTimes()[random.randrange( 0, len( connection.get_meetingTimes() ) )] )
+                CurrentClass.set_room( connection.get_rooms()[random.randrange( 0, len( connection.get_rooms() ) )] )
                 CurrentClass.set_instructor(
-                    connection.get_instructors()[random.randrange(0, len(connection.get_instructors()))])
-
-                self._classes.append(CurrentClass)
+                    connection.get_instructors()[random.randrange( 0, len( connection.get_instructors() ) )] )
+                self._classes.append( CurrentClass )
         return self
 
     def calculate_fitness(self):
         self._numOfConflicts = 0
         classlist = self.get_classes()
-        for i in range(0, len(classlist)):
+        for i in range( 0, len( classlist ) ):
             if classlist[i].get_room().get_room_capacity() < classlist[i].get_course().get_maxNumOfStudents():
                 self._numOfConflicts += 1
-            for j in range(0, len(classlist)):
+            for j in range( 0, len( classlist ) ):
                 if j >= i:
                     if (classlist[i].get_meetingTime() == classlist[j].get_meetingTime() and classlist[i].get_id() !=
                             classlist[j].get_id()):
