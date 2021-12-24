@@ -97,7 +97,7 @@ class Generations:
 
     def print_generation(self, population):
         generationTable = pt.PrettyTable(
-            ['schedule #', 'fitness', '# of conflicts', 'classes [dept, class, room, instructor, meeting-time]'] )
+            ['schedule', 'fitness', 'Number of conflicts', 'classes [dept, class, room, instructor, meeting-time]'] )
         schedules = population.get_schedules()
         for i in range( 0, len( schedules ) ):
             classes = schedules.__getitem__( i ).get_classes()
@@ -105,7 +105,7 @@ class Generations:
             for j in range( 0, len( classes ) ):
                 curClasses.append(
                     classes[j].get_dept().get_name() + ',' + classes[j].get_course().get_number() + ',' + classes[
-                        j].get_room().get_room_number() + ',' + classes[j].get_instructor().get_instructor_number() + ',' + classes[
+                        j].get_room().get_room_number() + ',' + classes[
                         j].get_meetingTime().get_id() )
             generationTable.add_row(
                 [str( i + 1 ), round( schedules[i].get_fitness(), 3 ), schedules[i].get_numOfConflicts(),
