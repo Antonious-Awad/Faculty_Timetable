@@ -12,13 +12,12 @@ generations = Generations.Generations()
 
 POPULATION_NUM = 9
 
-global root
-
 
 def main():
+    global root
     root = Tk()
     root.title( 'Data' )
-    root.geometry( "1000x500" )
+    root.geometry( "700x500" )
     root['background'] = '#856ff8'
 
     instructortree = ttk.Treeview( root )
@@ -80,7 +79,8 @@ def main():
     instructortree.place( x=20, y=20 )
     coursestree.place( x=300, y=20 )
 
-    Button( root, text="Generate Table", command=generateTable, width=30, height=2 ).place( x=440 ,y=400 )
+    Button( root, text="Generate Table", command=generateTable, width=30, height=2 ).place( x=440, y=400 )
+    root.resizable( width=FALSE, height=FALSE )
     root.mainloop()
 
 
@@ -88,21 +88,25 @@ def generateTable():
     global generationslog
     generationslog = ""
     generationNumber = 1
-    generationslog += "\n> Generation # " + str( generationNumber ) + "\n"
+    generationslog += "\n> Generation Number " + str( generationNumber ) + "\n"
     population = Population.Population( POPULATION_NUM )
-    population.get_schedules().sort( key=lambda x: x.get_fitness(), reverse=True )
+    newpop = population.get_schedules()
+
+    def function(newpop):
+        return newpop.get_fitness()
+
+    population.get_schedules().sort( key=function, reverse=True )
     generationslog += str( generations.print_generation( population ) )
     generationslog += str( generations.print_schedule_as_table( population.get_schedules()[0] ) )
     geneticAlgorithm = GA.GeneticAlgorithm()
     while population.get_schedules()[0].get_fitness() != 1.0:
         generationNumber += 1
-        generationslog += "\n> Generation # " + str( generationNumber ) + "\n"
+        generationslog += "\n> Generation  " + str( generationNumber ) + "\n"
         population = geneticAlgorithm.evolve( population )
-        population.get_schedules().sort( key=lambda x: x.get_fitness(), reverse=True )
+        population.get_schedules().sort( key=function, reverse=True )
         generationslog += str( generations.print_generation( population ) )
         generationslog += str( generations.print_schedule_as_table( population.get_schedules()[0] ) )
     print( "\n\n" )
-
 
     last_gen = generations.get_generated( population.get_schedules()[0] )
     Generated_Table( last_gen )
@@ -112,15 +116,14 @@ def show_gens():
     global generationswindow
     generationswindow = Tk()
     generationswindow.title( "Faculty Time Table" )
-    generationswindow.geometry( '1200x600' )
-    generationswindow.resizable( False, False )
+    generationswindow.geometry( '1300x700' )
 
     gens_text = Text( generationswindow )
     gens_text.insert( 'end', generationslog )
     gens_text.config( font=("Courier", 8), state=DISABLED )
 
     gens_text.pack( expand=1, fill=tk.BOTH )
-
+    Scrollbar( generationswindow )
     generationswindow.mainloop()
 
 
@@ -128,7 +131,7 @@ def Generated_Table(last_gen):
     global table
     table = Tk()
     table.title( "Faculty Time Table" )
-    table.geometry( '1500x500' )
+    table.geometry( '1000x400' )
     table.resizable( False, False )
 
     top_frame = Frame( table )
@@ -154,21 +157,21 @@ def Generated_Table(last_gen):
     generated.column( "3", width=200, anchor='c' )
     generated.column( "4", width=120, anchor='c' )
     generated.column( "5", width=200, anchor='c' )
-    generated.column( "6", width=200, anchor='c' )
+    generated.column( "6", width=300, anchor='c' )
 
     # Assigning the heading names to the  
     # respective columns 
-    generated.heading( "1", text="Class #" )
+    generated.heading( "1", text="Class ID" )
     generated.heading( "2", text="Dept" )
-    generated.heading( "3", text="Course (number, max # of students)" )
+    generated.heading( "3", text="Course (number, Number of students)" )
     generated.heading( "4", text="Room (Capacity)" )
-    generated.heading( "5", text="Instructor (id)" )
-    generated.heading( "6", text="Meeting Time (id)" )
+    generated.heading( "5", text="ID (Instructor)" )
+    generated.heading( "6", text="ID (Meeting Time)" )
 
     for i in range( 0, len( last_gen ) ):
         generated.insert( "", tk.END, values=last_gen[len( last_gen ) - 1 - i] )
 
-    log_Btn = Button( bottom_frame, text="Show Generations", command=show_gens, bg='blue', fg='white', width=120,
+    log_Btn = Button( bottom_frame, text="Show Generations", command=show_gens, bg='#856ff8', fg='white', width=120,
                       height=5 )
     log_Btn.pack( anchor='nw' )
 
