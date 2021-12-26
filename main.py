@@ -144,14 +144,14 @@ def Generated_Table(last_gen):
 
     generated.pack()
 
-    # Defining number of columns 
+    # Defining number of columns
     generated["columns"] = ("1", "2", "3", "4", "5", "6")
 
-    # Defining heading 
+    # Defining heading
     generated['show'] = 'headings'
 
-    # Assigning the width and anchor to  the 
-    # respective columns 
+    # Assigning the width and anchor to  the
+    # respective columns
     generated.column( "1", width=60, anchor='c' )
     generated.column( "2", width=60, anchor='c' )
     generated.column( "3", width=200, anchor='c' )
@@ -159,8 +159,8 @@ def Generated_Table(last_gen):
     generated.column( "5", width=200, anchor='c' )
     generated.column( "6", width=300, anchor='c' )
 
-    # Assigning the heading names to the  
-    # respective columns 
+    # Assigning the heading names to the
+    # respective columns
     generated.heading( "1", text="Class ID" )
     generated.heading( "2", text="Dept" )
     generated.heading( "3", text="Course (number, Number of students)" )
