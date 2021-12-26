@@ -156,6 +156,6 @@ dept_button = Button( insertdata, text="insert", width=20, height=2, command=add
 
 dept_button = Button( insertdata, text="insert", width=20, height=2, command=add_dept ).place( x=1000, y=450 )
 Button( insertdata, text="Show available data", command=main.main, width=30, height=2,
-        font=('bold', 14) ).place( x=1000, y=600 )
+        font=('bold', 14) ).place( x=1000, y=625 )
 
 insertdata.mainloop()
