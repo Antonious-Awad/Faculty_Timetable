@@ -24,30 +24,30 @@ class Connection:
         self.cursor.execute( "INSERT INTO Instructor  (Number, Name) VALUES (?, ?)",
                              (instructor_numberdb, instructor_namedb) );
         self.sqliteConnection.commit();
-        self.sqliteConnection.close();
+     #   self.sqliteConnection.close();
 
     def insert_dept(self, dept_name):
         self.cursor.execute( "INSERT INTO Departments (Name) VALUES (?)", [dept_name] );
         self.sqliteConnection.commit();
-        self.sqliteConnection.close();
+      #  self.sqliteConnection.close();
 
     def insert_courses(self, course_numberdb, course_namedb, max_num_db):
         self.cursor.execute( "INSERT INTO Courses  (Number, Name,MaxNoOfStudents) VALUES (?,?,?)",
                              (course_numberdb, course_namedb, max_num_db) );
         self.sqliteConnection.commit();
-        self.sqliteConnection.close();
+       # self.sqliteConnection.close();
 
     def insert_room(self, roomnum, capacity):
         self.cursor.execute( "INSERT INTO Room  (Number, Capacity) VALUES (?, ?)",
                              (roomnum, capacity) );
         self.sqliteConnection.commit();
-        self.sqliteConnection.close();
+        #self.sqliteConnection.close();
 
     def insert_Deptcourse(self, deptname, courseid):
         self.cursor.execute( "INSERT INTO DeptCourses  (DeptName,Course_Number) VALUES (?, ?)",
                              (deptname, courseid) );
         self.sqliteConnection.commit();
-        self.sqliteConnection.close();
+        #self.sqliteConnection.close();
 
     # def get_inst_byname(self, instructid):
     #    self.cursor.execute( "SELECT Number FROM Instructor where Name == '" + instructid + "'" )
@@ -58,7 +58,7 @@ class Connection:
         self.cursor.execute( "INSERT INTO CourseInstructor( Course_Number, Instructor_Number ) VALUES(?,?)",
                              (courseid, instructid) )
         self.sqliteConnection.commit();
-        self.sqliteConnection.close();
+        #self.sqliteConnection.close();
 
     # inst id where name == name from gui
     # values
